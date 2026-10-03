@@ -81,9 +81,8 @@ The source diff is [extension.diff](extension.diff). Reproduce it using:
 git diff 544357acd1ba9ec025a578b9c9b8cb821a28c93a HEAD -- src > extension.diff
 ```
 
-The editable UML is [diagram.drawio](diagram.drawio); [diagram.png](diagram.png) is its
-rendered version, with labelled relationships and fixed positions. The submission PDF contains the UML, five annotated code examples,
-and screenshots of the actual demo and extension check.
+The [report](report.pdf) contains the UML with labelled relationships, five annotated
+code examples, and screenshots of the actual demo and extension check.
 
 Bridge lets the remote behavior and device implementation vary independently.
 Adapter would wrap an existing incompatible device API so it could satisfy Device.

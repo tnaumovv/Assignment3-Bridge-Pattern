@@ -1,10 +1,9 @@
-# Assignment 3 | Bridge Pattern
+# Assignment 3 - Bridge Pattern
 
 - Student: Timur Naumov
 - Group: SE-2537
 - Topic: D - Remote controls
-- Repository: https://github.com/tnaumovv/Assignment3-Bridge-Pattern
-- Base commit: `544357acd1ba9ec025a578b9c9b8cb821a28c93a`
+- Repository: [https://github.com/tnaumovv/Assignment3-Bridge-Pattern](https://github.com/tnaumovv/Assignment3-Bridge-Pattern)
 
 ## Role map
 
@@ -19,8 +18,6 @@
 | I3 | ProjectorDevice | [src/ProjectorDevice.java](src/ProjectorDevice.java) |
 | Client | Main | [src/Main.java](src/Main.java) |
 | Shared output helper | DeviceStatus | [src/DeviceStatus.java](src/DeviceStatus.java) |
-
-## Where to look
 
 | Requirement | Location |
 | --- | --- |
@@ -80,16 +77,3 @@ The source diff is [extension.diff](extension.diff). Reproduce it using:
 ```sh
 git diff 544357acd1ba9ec025a578b9c9b8cb821a28c93a HEAD -- src > extension.diff
 ```
-
-The [report](report.pdf) contains the UML with labelled relationships, five annotated
-code examples, and screenshots of the actual demo and extension check.
-
-Bridge lets the remote behavior and device implementation vary independently.
-Adapter would wrap an existing incompatible device API so it could satisfy Device.
-One trade-off here is the extra interface and delegation for a small simulation.
-
-## Submission
-
-ZIP name: `Assignment3_SE-2537_Naumov_Timur.zip`. Its root contains src/, sources.txt,
-README.md, report.pdf, demo-output.txt, and extension.diff. The source must match the
-submitted Git commit. Provide the repository URL and exact source commit in Moodle.

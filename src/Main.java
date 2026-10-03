@@ -10,7 +10,7 @@ public class Main {
 
     private static void runDemo() {
         int passed = 0;
-        int total = 5;
+        int total = 7;
 
         passed += checkResult("T1", "Circle + VectorRenderer",
                 new Circle("circle-1", 2, new VectorRenderer()),
@@ -25,6 +25,12 @@ public class Main {
                 new Square("square-1", 3, new RasterRenderer()),
                 "RASTER square side=3");
         passed += checkRuntimeSwitch();
+        passed += checkResult("T6", "Circle + AsciiRenderer",
+                new Circle("circle-1", 2, new AsciiRenderer()),
+                "ASCII circle radius=2");
+        passed += checkResult("T7", "Square + AsciiRenderer",
+                new Square("square-1", 3, new AsciiRenderer()),
+                "ASCII square side=3");
 
         System.out.println("SUMMARY: " + passed + "/" + total + " PASS");
         if (passed != total) {

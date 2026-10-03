@@ -1,0 +1,81 @@
+@startuml
+!pragma layout smetana
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam dpi 160
+skinparam defaultFontName SansSerif
+skinparam defaultFontSize 14
+hide empty members
+
+title Assignment 3 | Bridge Pattern - Topic A: Drawing
+
+abstract class Shape {
+    - id : String {readOnly}
+    - implementation : Renderer
+    # Shape(id : String, implementation : Renderer)
+    + getId() : String
+    # getImplementation() : Renderer
+    + setImplementation(implementation : Renderer) : void
+    {abstract} + execute() : String
+}
+
+class Circle {
+    - radius : int {readOnly}
+    + getRadius() : int
+    + execute() : String
+}
+
+class Square {
+    - side : int {readOnly}
+    + getSide() : int
+    + execute() : String
+}
+
+interface Renderer {
+    + renderCircle(radius : int) : String
+    + renderSquare(side : int) : String
+}
+
+class VectorRenderer {
+    + renderCircle(radius : int) : String
+    + renderSquare(side : int) : String
+}
+
+class RasterRenderer {
+    + renderCircle(radius : int) : String
+    + renderSquare(side : int) : String
+}
+
+class AsciiRenderer {
+    + renderCircle(radius : int) : String
+    + renderSquare(side : int) : String
+}
+
+class Main <<Client>> {
+    {static} + main(args : String[]) : void
+    {static} - runDemo() : void
+    {static} - checkRuntimeSwitch() : int
+}
+
+Shape <|-- Circle
+Shape <|-- Square
+Renderer <|.. VectorRenderer
+Renderer <|.. RasterRenderer
+Renderer <|.. AsciiRenderer
+Shape o-right-> Renderer
+Circle -[hidden]down- Square
+VectorRenderer -[hidden]down- RasterRenderer
+RasterRenderer -[hidden]down- AsciiRenderer
+Main ..> Shape
+Main ..> Circle
+Main ..> Square
+Main ..> VectorRenderer
+Main ..> RasterRenderer
+Main ..> AsciiRenderer
+
+legend bottom
+    Solid hollow triangle: extends | Dashed hollow triangle: implements
+    Open diamond: implementation : Renderer | Dashed arrow: client dependency
+    {readOnly}: final field
+endlegend
+@enduml

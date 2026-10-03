@@ -1,0 +1,153 @@
+Assignment 3 | Bridge Pattern
+Timur Naumov | SE-2537 | Topic A - Drawing
+Astana IT University | ShP-2216 Software Design Patterns | 2026-2027
+
+Report content draft. PDF layout is intentionally pending.
+Repository URL: to be added before submission.
+Submitted source commit: to be recorded when the final submission is prepared.
+Base commit: 70ec3caac1cd89fe2fc0d414b693353eadc0b00b
+
+1. Two independent dimensions and Bridge
+
+The application has two dimensions: the kind of shape and the rendering method.
+Circle stores a radius; Square stores a side. VectorRenderer, RasterRenderer, and
+AsciiRenderer produce different descriptions of the same shape data. The required
+samples are a circle with radius 2 and a square with side 3. [1]
+
+Shape is the abstraction, Circle and Square are refined abstractions, and Renderer
+is the implementor interface. Shape holds a private Renderer reference received
+through its constructor. Circle.execute() delegates to renderCircle(radius), and
+Square.execute() delegates to renderSquare(side). Main creates and connects the
+objects. Shapes manage their domain data; renderers manage the output style.
+
+Bridge fits because shape behavior and rendering style vary separately. It lets
+one Circle work with any Renderer without a CircleVector or CircleRaster subclass.
+This use follows the independent-variation intent described in the Bridge reading.
+[2] The relationship uses an interface-typed object reference and composition.
+
+2. UML class diagram
+
+Insert diagram.png here when preparing the PDF. Its editable source is diagram.puml.
+The diagram shows Shape with Circle and Square, the Renderer interface with all
+three implementations, Main as the client, the relevant methods, and the bridge
+field implementation : Renderer. An open diamond denotes the has-a relationship;
+renderers are supplied from outside and may be shared between shapes.
+
+3. Five annotated Clean Code excerpts
+
+a. Separation of responsibilities - Circle.java and VectorRenderer.java
+
+    public String execute() {
+        return getImplementation().renderCircle(radius);
+    }
+
+    public String renderCircle(int radius) {
+        return "VECTOR circle radius=" + radius;
+    }
+
+Circle selects the operation and supplies its radius. VectorRenderer creates the
+vector description. The shape does not contain vector, raster, or ASCII formatting.
+This separation keeps output changes out of domain classes.
+
+b. Meaningful names - Main.java, checkRuntimeSwitch()
+
+    boolean sameObject = original == switched;
+    boolean stateUnchanged = originalId.equals(switched.getId())
+            && originalRadius == switched.getRadius();
+
+The names show exactly which properties are being checked. sameObject checks
+reference identity; stateUnchanged checks the ID and radius. These names make the
+runtime-switch proof easy to understand without confusing an ID with an object.
+
+c. Small focused methods - Shape.java
+
+    public void setImplementation(Renderer implementation) {
+        this.implementation = implementation;
+    }
+
+This method only replaces the renderer reference. It does not recreate the shape
+or modify its ID or dimension. A single responsibility makes its effect easy to
+trace during the defense.
+
+d. Avoidance of duplication - Main.java
+
+    private static int checkResult(String testId, String classes,
+                                   Shape shape, String expected) {
+        String actual = shape.execute();
+        boolean passed = expected.equals(actual);
+        return printCheck(testId, passed, classes + " | result=" + actual,
+                "result=" + expected);
+    }
+
+T1-T4 and T6-T7 reuse the same execute/compare/report workflow. printCheck also
+centralizes the PASS/FAIL output for T5 and the other checks. Fixing the reporting
+logic therefore does not require copying a change into every demonstration case.
+
+The renderer methods intentionally stay simple: each describes a different shape
+and implementation. No shared rendering superclass is needed for one-line outputs.
+
+e. Encapsulation of state - Shape.java and Circle.java
+
+    private final String id;
+    private Renderer implementation;
+
+    private final int radius;
+
+    public int getRadius() {
+        return radius;
+    }
+
+Private fields prevent direct external changes. final keeps the ID and radius
+unchanged after construction. The renderer is the intentionally replaceable field,
+accessed by subclasses through the protected interface-typed getter. Square uses
+the same approach for its side. This protects domain data during switching.
+
+4. Demonstration and independent extension
+
+Main --demo runs T1-T7 in order with fixed data and no input. T1-T4 cover all
+Circle/Square and VectorRenderer/RasterRenderer combinations. Each check executes
+a real shape and compares its returned string with the exact expected string.
+
+T5 saves the original Circle reference, ID, radius, and vector result. The switched
+reference points to the same object. After setImplementation(new RasterRenderer()),
+T5 checks original == switched, unchanged ID and radius, and the raster result.
+PASS requires all conditions to be true. Matching IDs alone are insufficient.
+
+The working I1/I2 solution and runtime switching were committed first, as the base
+commit recorded above. Only then was AsciiRenderer added. The Java source changes
+for the extension are src/AsciiRenderer.java and src/Main.java. Main adds T6 and T7
+and changes the total from five to seven. sources.txt and documentation are updated
+as permitted by the assignment. Shape, Circle, Square, Renderer, VectorRenderer,
+and RasterRenderer are unchanged. extension.diff records this source comparison.
+
+T6 and T7 verify both shapes through the new renderer. The actual final run is
+captured in demo-output.txt and ends with SUMMARY: 7/7 PASS. Failed comparisons
+would print FAIL, show the expected value, and reduce the calculated summary.
+
+5. Trade-off and comparison with Adapter
+
+Bridge introduces an interface and a level of delegation. In this small drawing
+application, that adds classes compared with putting every output in each shape.
+The shape-specific Renderer contract is easy to understand, but adding a completely
+new shape would require another operation and corresponding renderer methods.
+Adding a new renderer, as shown by AsciiRenderer, leaves the existing contract and
+shape classes unchanged. The independence is within the operations of that contract.
+
+Bridge supports independent variation of abstractions and implementations. Adapter
+makes an incompatible existing interface usable through the interface a client
+expects. [2, 3] Here the renderers already share Renderer. There is no incompatible
+API being translated. An adapter would be useful if a future external drawing
+library had a different API and needed to be wrapped behind Renderer.
+
+References
+
+[1] Yerassyl Bekenov. Assignment 3 | Bridge Pattern. Astana IT University,
+    ShP-2216 Software Design Patterns, 2026-2027. Provided assignment instructions.
+[2] Alan Shalloway and James R. Trott. Design Patterns Explained: A New Perspective
+    on Object-Oriented Design. Addison-Wesley Professional, 2001.
+    Introducing the Bridge Pattern, online chapter excerpt:
+    https://www.oreilly.com/library/view/design-patterns-explained/0201715945/0201715945_ch09lev1sec2.html
+[3] Alan Shalloway and James R. Trott. Same book, Introducing the Adapter Pattern,
+    online chapter excerpt:
+    https://www.oreilly.com/library/view/design-patterns-explained/0201715945/0201715945_ch07lev1sec2.html
+    Online excerpts accessed 3 October 2026.

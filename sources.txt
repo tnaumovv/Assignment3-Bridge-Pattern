@@ -1,8 +1,8 @@
+src/Remote.java
+src/BasicRemote.java
+src/QuietRemote.java
+src/Device.java
+src/DeviceStatus.java
+src/TvDevice.java
+src/RadioDevice.java
 src/Main.java
-src/Shape.java
-src/Circle.java
-src/Square.java
-src/Renderer.java
-src/VectorRenderer.java
-src/RasterRenderer.java
-src/AsciiRenderer.java

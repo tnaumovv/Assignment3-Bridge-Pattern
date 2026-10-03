@@ -4,33 +4,26 @@ public class Main {
             System.out.println("Usage: java -cp out Main --demo");
             return;
         }
-
         runDemo();
     }
 
     private static void runDemo() {
         int passed = 0;
-        int total = 7;
+        int total = 5;
 
-        passed += checkResult("T1", "Circle + VectorRenderer",
-                new Circle("circle-1", 2, new VectorRenderer()),
-                "VECTOR circle radius=2");
-        passed += checkResult("T2", "Circle + RasterRenderer",
-                new Circle("circle-1", 2, new RasterRenderer()),
-                "RASTER circle radius=2");
-        passed += checkResult("T3", "Square + VectorRenderer",
-                new Square("square-1", 3, new VectorRenderer()),
-                "VECTOR square side=3");
-        passed += checkResult("T4", "Square + RasterRenderer",
-                new Square("square-1", 3, new RasterRenderer()),
-                "RASTER square side=3");
+        passed += checkResult("T1", "BasicRemote + TvDevice",
+                new BasicRemote("basic-1", new TvDevice()),
+                "TV power=ON volume=30");
+        passed += checkResult("T2", "BasicRemote + RadioDevice",
+                new BasicRemote("basic-1", new RadioDevice()),
+                "RADIO power=ON volume=30");
+        passed += checkResult("T3", "QuietRemote + TvDevice",
+                new QuietRemote("quiet-1", new TvDevice()),
+                "TV power=ON volume=5");
+        passed += checkResult("T4", "QuietRemote + RadioDevice",
+                new QuietRemote("quiet-1", new RadioDevice()),
+                "RADIO power=ON volume=5");
         passed += checkRuntimeSwitch();
-        passed += checkResult("T6", "Circle + AsciiRenderer",
-                new Circle("circle-1", 2, new AsciiRenderer()),
-                "ASCII circle radius=2");
-        passed += checkResult("T7", "Square + AsciiRenderer",
-                new Square("square-1", 3, new AsciiRenderer()),
-                "ASCII square side=3");
 
         System.out.println("SUMMARY: " + passed + "/" + total + " PASS");
         if (passed != total) {
@@ -39,40 +32,38 @@ public class Main {
     }
 
     private static int checkResult(String testId, String classes,
-                                   Shape shape, String expected) {
-        String actual = shape.execute();
+                                   Remote remote, String expected) {
+        String actual = remote.execute();
         boolean passed = expected.equals(actual);
         return printCheck(testId, passed, classes + " | result=" + actual,
                 "result=" + expected);
     }
 
     private static int checkRuntimeSwitch() {
-        Circle original = new Circle("circle-switch", 2, new VectorRenderer());
-        Circle switched = original;
+        BasicRemote original = new BasicRemote("remote-switch", new TvDevice());
+        BasicRemote switched = original;
         String originalId = original.getId();
-        int originalRadius = original.getRadius();
+        int originalVolume = original.getVolumePreset();
         String before = original.execute();
 
-        switched.setImplementation(new RasterRenderer());
+        switched.setImplementation(new RadioDevice());
         String after = switched.execute();
 
         boolean sameObject = original == switched;
         boolean stateUnchanged = originalId.equals(switched.getId())
-                && originalRadius == switched.getRadius();
+                && originalVolume == switched.getVolumePreset();
         boolean passed = sameObject && stateUnchanged
-                && "VECTOR circle radius=2".equals(before)
-                && "RASTER circle radius=2".equals(after);
+                && "TV power=ON volume=30".equals(before)
+                && "RADIO power=ON volume=30".equals(after);
 
-        String details = "Circle + VectorRenderer -> RasterRenderer"
-                + " | sameObject=" + sameObject
-                + " | stateUnchanged=" + stateUnchanged
-                + " | id=" + originalId + " -> " + switched.getId()
-                + " | radius=" + originalRadius + " -> " + switched.getRadius()
-                + " | before=" + before + " | after=" + after;
+        String details = "BasicRemote + TvDevice -> RadioDevice"
+                + "\n  sameObject=" + sameObject + " | stateUnchanged=" + stateUnchanged
+                + "\n  id=" + originalId + " -> " + switched.getId()
+                + " | volumePreset=" + originalVolume + " -> " + switched.getVolumePreset()
+                + "\n  before=" + before + " | after=" + after;
         String expected = "sameObject=true | stateUnchanged=true"
-                + " | id=circle-switch -> circle-switch | radius=2 -> 2"
-                + " | before=VECTOR circle radius=2"
-                + " | after=RASTER circle radius=2";
+                + " | id=remote-switch -> remote-switch | volumePreset=30 -> 30"
+                + " | before=TV power=ON volume=30 | after=RADIO power=ON volume=30";
         return printCheck("T5", passed, details, expected);
     }
 

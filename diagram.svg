@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1160" height="1150" viewBox="0 0 1160 1150">
+<rect width="100%" height="100%" fill="white"/>
+<defs><marker id="open" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" orient="auto" markerUnits="userSpaceOnUse"><path d="M 1 1 L 11 6 L 1 11" fill="none" stroke="#222" stroke-width="1.7"/></marker>
+<marker id="triangle" viewBox="0 0 18 18" refX="17" refY="9" markerWidth="18" markerHeight="18" orient="auto" markerUnits="userSpaceOnUse"><path d="M 1 1 L 17 9 L 1 17 Z" fill="white" stroke="#222" stroke-width="1.7"/></marker>
+<marker id="diamond" viewBox="0 0 24 16" refX="0" refY="8" markerWidth="24" markerHeight="16" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path d="M 0 8 L 11 1 L 22 8 L 11 15 Z" fill="white" stroke="#222" stroke-width="1.7"/></marker></defs>
+<g font-family="Arial, sans-serif" fill="#111">
+<rect x="360" y="20" width="400" height="125" fill="white" stroke="#222" stroke-width="1.6"/>
+<text x="560.0" y="37" text-anchor="middle" font-size="13">«Client»</text>
+<text x="560.0" y="54" text-anchor="middle" font-size="20">Main</text>
+<path d="M 360 68 H 760" fill="none" stroke="#222" stroke-width="1"/>
+<text x="372" y="91" font-size="19" text-decoration="underline">+ main(args: String[]): void</text>
+<text x="372" y="114" font-size="19" text-decoration="underline">- runDemo(): void</text>
+<text x="372" y="137" font-size="19" text-decoration="underline">- checkRuntimeSwitch(): int</text>
+<rect x="40" y="230" width="440" height="300" fill="white" stroke="#222" stroke-width="1.6"/>
+<text x="260.0" y="254" text-anchor="middle" font-size="20" font-style="italic">Remote</text>
+<path d="M 40 265 H 480" fill="none" stroke="#222" stroke-width="1"/>
+<text x="52" y="288" font-size="19">- id: String {readOnly}</text>
+<text x="52" y="312" font-size="19">- volumePreset: int {readOnly}</text>
+<text x="52" y="336" font-size="19">- implementation: Device</text>
+<path d="M 40 352 H 480" fill="none" stroke="#222" stroke-width="1"/>
+<text x="52" y="375" font-size="19"># Remote(id: String, volumePreset: int,</text>
+<text x="52" y="398" font-size="19">    implementation: Device)</text>
+<text x="52" y="421" font-size="19">+ getId(): String</text>
+<text x="52" y="444" font-size="19">+ getVolumePreset(): int</text>
+<text x="52" y="467" font-size="19">+ setImplementation(implementation: Device)</text>
+<text x="52" y="490" font-size="19">    : void</text>
+<text x="52" y="513" font-size="19">+ execute(): String</text>
+<rect x="40" y="585" width="230" height="110" fill="white" stroke="#222" stroke-width="1.6"/>
+<text x="155.0" y="609" text-anchor="middle" font-size="20">BasicRemote</text>
+<path d="M 40 620 H 270" fill="none" stroke="#222" stroke-width="1"/>
+<text x="52" y="643" font-size="17.8">+ BasicRemote(id: String,</text>
+<text x="52" y="666" font-size="17.8">    implementation: Device)</text>
+<rect x="295" y="585" width="230" height="110" fill="white" stroke="#222" stroke-width="1.6"/>
+<text x="410.0" y="609" text-anchor="middle" font-size="20">QuietRemote</text>
+<path d="M 295 620 H 525" fill="none" stroke="#222" stroke-width="1"/>
+<text x="307" y="643" font-size="17.8">+ QuietRemote(id: String,</text>
+<text x="307" y="666" font-size="17.8">    implementation: Device)</text>
+<rect x="670" y="245" width="410" height="105" fill="white" stroke="#222" stroke-width="1.6"/>
+<text x="875.0" y="262" text-anchor="middle" font-size="13">«interface»</text>
+<text x="875.0" y="279" text-anchor="middle" font-size="20">Device</text>
+<path d="M 670 293 H 1080" fill="none" stroke="#222" stroke-width="1"/>
+<text x="682" y="316" font-size="19">+ applySettings(poweredOn: boolean,</text>
+<text x="682" y="339" font-size="19">    volume: int): String</text>
+<rect x="670" y="460" width="410" height="95" fill="white" stroke="#222" stroke-width="1.6"/>
+<text x="875.0" y="484" text-anchor="middle" font-size="20">TvDevice</text>
+<path d="M 670 495 H 1080" fill="none" stroke="#222" stroke-width="1"/>
+<text x="682" y="518" font-size="19">+ applySettings(poweredOn: boolean,</text>
+<text x="682" y="541" font-size="19">    volume: int): String</text>
+<rect x="670" y="630" width="410" height="95" fill="white" stroke="#222" stroke-width="1.6"/>
+<text x="875.0" y="654" text-anchor="middle" font-size="20">RadioDevice</text>
+<path d="M 670 665 H 1080" fill="none" stroke="#222" stroke-width="1"/>
+<text x="682" y="688" font-size="19">+ applySettings(poweredOn: boolean,</text>
+<text x="682" y="711" font-size="19">    volume: int): String</text>
+<rect x="670" y="800" width="410" height="95" fill="white" stroke="#222" stroke-width="1.6"/>
+<text x="875.0" y="824" text-anchor="middle" font-size="20">ProjectorDevice</text>
+<path d="M 670 835 H 1080" fill="none" stroke="#222" stroke-width="1"/>
+<text x="682" y="858" font-size="19">+ applySettings(poweredOn: boolean,</text>
+<text x="682" y="881" font-size="19">    volume: int): String</text>
+<rect x="670" y="1020" width="410" height="110" fill="white" stroke="#222" stroke-width="1.6"/>
+<text x="875.0" y="1044" text-anchor="middle" font-size="20">DeviceStatus</text>
+<path d="M 670 1055 H 1080" fill="none" stroke="#222" stroke-width="1"/>
+<text x="682" y="1078" font-size="19" text-decoration="underline">+ format(type: String, poweredOn: boolean,</text>
+<text x="682" y="1101" font-size="19" text-decoration="underline">    volume: int): String</text>
+<polyline points="430,145 430,175 250,175 250,230" fill="none" stroke="#222" stroke-width="1.7" stroke-dasharray="8 5" marker-end="url(#open)"/>
+<text x="330" y="164" text-anchor="middle" font-size="19" fill="#222">uses</text>
+<polyline points="690,145 690,195 875,195 875,245" fill="none" stroke="#222" stroke-width="1.7" stroke-dasharray="8 5" marker-end="url(#open)"/>
+<text x="794" y="180" text-anchor="middle" font-size="19" fill="#222">selects implementation</text>
+<path d="M 480 315 L 491 308 L 502 315 L 491 322 Z" fill="white" stroke="#222" stroke-width="1.7"/>
+<polyline points="502,315 670,315" fill="none" stroke="#222" stroke-width="1.7" marker-end="url(#open)"/>
+<text x="575" y="298" text-anchor="middle" font-size="19" fill="#222">implementation</text>
+<polyline points="155,585 155,550 180,550 180,530" fill="none" stroke="#222" stroke-width="1.7" marker-end="url(#triangle)"/>
+<text x="235" y="570" text-anchor="middle" font-size="19" fill="#222">extends</text>
+<polyline points="410,585 410,550 360,550 360,530" fill="none" stroke="#222" stroke-width="1.7" marker-end="url(#triangle)"/>
+<text x="335" y="570" text-anchor="middle" font-size="19" fill="#222">extends</text>
+<polyline points="670,507 570,507 570,405 760,405 760,350" fill="none" stroke="#222" stroke-width="1.7" stroke-dasharray="8 5" marker-end="url(#triangle)"/>
+<text x="665" y="389" text-anchor="middle" font-size="19" fill="#222">implements</text>
+<polyline points="670,677 590,677 590,425 865,425 865,350" fill="none" stroke="#222" stroke-width="1.7" stroke-dasharray="8 5" marker-end="url(#triangle)"/>
+<text x="813" y="409" text-anchor="middle" font-size="19" fill="#222">implements</text>
+<polyline points="670,847 610,847 610,445 975,445 975,350" fill="none" stroke="#222" stroke-width="1.7" stroke-dasharray="8 5" marker-end="url(#triangle)"/>
+<text x="920" y="429" text-anchor="middle" font-size="19" fill="#222">implements</text>
+<polyline points="1080,507 1120,507 1120,970 875,970 875,1020" fill="none" stroke="#222" stroke-width="1.7" stroke-dasharray="8 5" marker-end="url(#open)"/>
+<text x="992" y="954" text-anchor="middle" font-size="19" fill="#222">formats status</text>
+<polyline points="1080,677 1120,677 1120,970 875,970 875,1020" fill="none" stroke="#222" stroke-width="1.7" stroke-dasharray="8 5" marker-end="url(#open)"/>
+<polyline points="1080,847 1120,847 1120,970 875,970 875,1020" fill="none" stroke="#222" stroke-width="1.7" stroke-dasharray="8 5" marker-end="url(#open)"/>
+<rect x="40" y="770" width="495" height="116" fill="#f8f8f8" stroke="#999" stroke-width="1"/>
+<text x="54" y="794" font-size="19">Main creates BasicRemote and QuietRemote,</text>
+<text x="54" y="818" font-size="19">and the three concrete device types.</text>
+<text x="54" y="842" font-size="19">The shared execute() method is inherited</text>
+<text x="54" y="866" font-size="19">by both remote subclasses.</text>
+<rect x="40" y="1020" width="560" height="110" fill="#f8f8f8" stroke="#999" stroke-width="1"/>
+<text x="54" y="1044" font-size="19">Solid line + hollow triangle: extends</text>
+<text x="54" y="1068" font-size="19">Dashed line + hollow triangle: implements</text>
+<text x="54" y="1092" font-size="19">Open diamond: has-a Device reference</text>
+<text x="54" y="1116" font-size="19">Dashed open arrow: dependency; {readOnly}: final</text>
+</g>
+</svg>

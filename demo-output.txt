@@ -6,4 +6,6 @@ T5 PASS | BasicRemote + TvDevice -> RadioDevice
   sameObject=true | stateUnchanged=true
   id=remote-switch -> remote-switch | volumePreset=30 -> 30
   before=TV power=ON volume=30 | after=RADIO power=ON volume=30
-SUMMARY: 5/5 PASS
+T6 PASS | BasicRemote + ProjectorDevice | result=PROJECTOR power=ON volume=30
+T7 PASS | QuietRemote + ProjectorDevice | result=PROJECTOR power=ON volume=5
+SUMMARY: 7/7 PASS

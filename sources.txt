@@ -6,3 +6,4 @@ src/DeviceStatus.java
 src/TvDevice.java
 src/RadioDevice.java
 src/Main.java
+src/ProjectorDevice.java

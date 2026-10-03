@@ -1,0 +1,36 @@
+Timur Naumov | SE-2537 | D - Remote controls
+
+1. Запуск: javac --release 17 -encoding UTF-8 -d out "@sources.txt"
+   Затем: java -cp out Main --demo. Результат: SUMMARY: 7/7 PASS.
+
+2. Remote - абстрактный базовый класс. BasicRemote задаёт громкость 30,
+   QuietRemote - 5 через super(...). Общий execute() берёт сохранённую настройку
+   и вызывает applySettings(true, volumePreset) у текущего Device. true означает ON.
+   Device - интерфейс, TV/Radio/Projector - реализации. DeviceStatus.format()
+   собирает статус устройства в одном месте, чтобы не повторять форматирование.
+
+3. В T5 original и switched ссылаются на один BasicRemote. == сравнивает ссылки.
+   Сохраняются ID и volumePreset, выполняется первый execute(), затем меняется
+   только поле Device implementation. Второй execute() использует RadioDevice.
+   ID и preset - private final, поэтому замена устройства их не меняет.
+
+4. ProjectorDevice добавлен после базового коммита. В extension.diff внутри src/
+   изменены только Main.java и новый ProjectorDevice.java. Интерфейс и старые
+   классы сохранены. Новый device подходит, потому что реализует applySettings.
+   Bridge разделяет две оси изменения. Adapter переводит несовместимый API
+   существующей библиотеки в ожидаемый интерфейс.
+
+5. checkResult запускает remote.execute(), сравнивает actual и expected через
+   equals(), затем передаёт результат printCheck. printCheck печатает PASS/FAIL и
+   возвращает 1/0. runDemo складывает эти числа. При ошибке выводится expected,
+   остальные проверки продолжаются, после summary программа завершится с кодом 1.
+
+Примеры:
+- QuietRemote с ProjectorDevice возвращает PROJECTOR power=ON volume=5.
+- Если BasicRemote задать preset 40 вместо 30, он будет возвращать volume=40;
+  проверки, которые ожидают 30, получат FAIL.
+- Если setter ничего не делает, T5 вернёт TV после переключения и получит FAIL.
+- applySettings(false, 12) у RadioDevice возвращает RADIO power=OFF volume=12.
+
+Здесь device моделируется возвращаемой строкой, без настоящего оборудования.
+До защиты прочитай каждый метод и объясни его своими словами.

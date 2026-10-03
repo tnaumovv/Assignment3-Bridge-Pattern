@@ -9,7 +9,7 @@ public class Main {
 
     private static void runDemo() {
         int passed = 0;
-        int total = 5;
+        int total = 7;
 
         passed += checkResult("T1", "BasicRemote + TvDevice",
                 new BasicRemote("basic-1", new TvDevice()),
@@ -24,6 +24,12 @@ public class Main {
                 new QuietRemote("quiet-1", new RadioDevice()),
                 "RADIO power=ON volume=5");
         passed += checkRuntimeSwitch();
+        passed += checkResult("T6", "BasicRemote + ProjectorDevice",
+                new BasicRemote("basic-1", new ProjectorDevice()),
+                "PROJECTOR power=ON volume=30");
+        passed += checkResult("T7", "QuietRemote + ProjectorDevice",
+                new QuietRemote("quiet-1", new ProjectorDevice()),
+                "PROJECTOR power=ON volume=5");
 
         System.out.println("SUMMARY: " + passed + "/" + total + " PASS");
         if (passed != total) {
